@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  mysqlsrv:
+    container_name: mysql-senai
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    expose:
+      - "3306"
+    volumes:
+     - ./docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: curso_senai
+      MYSQL_USER: root
+      MYSQL_PASSWORD: P@ulinho
+      MYSQL_ROOT_PASSWORD: P@ulinho
+    networks:
+      - network-mysql-senai
+
+  adminer:
+    container_name: adminer-senai
+    image: adminer
+    ports:
+       - 8080:8080
+    networks:
+      - network-mysql-senai
+
+networks:
+  network-mysql-senai:
+    driver: bridge
